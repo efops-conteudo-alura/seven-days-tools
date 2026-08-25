@@ -1,0 +1,12 @@
+# Rascunhos e backups gerados pelo formulário
+rascunhos/
+
+# Briefings gerados (mantém apenas EXEMPLO-preenchido.md)
+briefings/vibe-coding-*.md
+
+# Saídas geradas (HTMLs, .docx)
+saida/
+
+# Sistema
+.DS_Store
+Thumbs.db

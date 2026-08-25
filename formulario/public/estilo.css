@@ -1,0 +1,198 @@
+/* Formulário de trilhas — 7 Days of Code */
+
+* { box-sizing: border-box; margin: 0; }
+
+:root {
+  --fundo: #f5f6f8;
+  --cartao: #ffffff;
+  --borda: #d9dde3;
+  --texto: #1c2430;
+  --texto-suave: #5b6675;
+  --acento: #1863d6;
+  --erro: #c0262d;
+  --aviso: #8a6100;
+  --ok: #1a7f37;
+}
+
+body {
+  font-family: "Segoe UI", system-ui, sans-serif;
+  background: var(--fundo);
+  color: var(--texto);
+  font-size: 15px;
+}
+
+.oculta { display: none !important; }
+
+/* ---------- tela inicial ---------- */
+
+.inicio { max-width: 620px; margin: 8vh auto; padding: 0 20px; }
+.inicio h1 { font-size: 26px; margin-bottom: 8px; }
+.inicio .sub { color: var(--texto-suave); margin-bottom: 24px; }
+.inicio h2 { font-size: 17px; margin: 32px 0 12px; }
+
+.lista-rascunhos { list-style: none; padding: 0; }
+.lista-rascunhos li { margin-bottom: 8px; }
+.lista-rascunhos button {
+  width: 100%; text-align: left; padding: 12px 16px;
+  background: var(--cartao); border: 1px solid var(--borda); border-radius: 8px;
+  font-size: 15px; cursor: pointer;
+}
+.lista-rascunhos button:hover { border-color: var(--acento); }
+.lista-rascunhos .quando { color: var(--texto-suave); font-size: 13px; }
+.lista-rascunhos .vazio { color: var(--texto-suave); }
+
+/* ---------- botões ---------- */
+
+.botao {
+  padding: 9px 14px; border: 1px solid var(--borda); border-radius: 8px;
+  background: var(--cartao); font-size: 14px; cursor: pointer; color: var(--texto);
+}
+.botao:hover { border-color: var(--acento); }
+.botao.primario { background: var(--acento); border-color: var(--acento); color: #fff; }
+.botao.primario:hover { filter: brightness(1.1); }
+.botao.discreto { border: none; background: none; color: var(--texto-suave); }
+.botao.discreto:hover { color: var(--texto); }
+
+/* ---------- layout do formulário ---------- */
+
+#tela-form { display: flex; min-height: 100vh; }
+
+#menu {
+  width: 270px; flex-shrink: 0; padding: 16px;
+  background: var(--cartao); border-right: 1px solid var(--borda);
+  position: sticky; top: 0; height: 100vh; overflow-y: auto;
+  display: flex; flex-direction: column;
+}
+.titulo-trilha { font-weight: 600; font-size: 16px; margin: 12px 0 16px; }
+
+#indice { flex: 1; }
+#indice .secao { font-size: 12px; text-transform: uppercase; letter-spacing: .05em;
+  color: var(--texto-suave); margin: 14px 0 6px; }
+#indice a {
+  display: flex; align-items: center; gap: 8px;
+  padding: 7px 10px; border-radius: 6px; text-decoration: none;
+  color: var(--texto); font-size: 14px;
+}
+#indice a:hover { background: var(--fundo); }
+#indice a.atual { background: #e8f0fd; color: var(--acento); font-weight: 600; }
+
+/* bolinha de status por página */
+.bola { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0;
+  border: 2px solid var(--borda); background: transparent; }
+.bola.parcial { border-color: var(--aviso); background: #f5d97b; }
+.bola.completa { border-color: var(--ok); background: #7ed49a; }
+
+.acoes { display: flex; flex-direction: column; gap: 8px; margin-top: 16px; }
+.salvo { font-size: 12px; color: var(--texto-suave); margin-top: 10px; min-height: 16px; }
+
+/* ---------- página de campos ---------- */
+
+#pagina { flex: 1; padding: 28px 36px; max-width: 860px; }
+#pagina h2 { font-size: 21px; margin-bottom: 6px; }
+#pagina .descricao { color: var(--texto-suave); margin-bottom: 22px; }
+
+.campo { margin-bottom: 22px; }
+.campo label { display: block; font-weight: 600; margin-bottom: 4px; }
+.campo .opcional { font-weight: 400; color: var(--texto-suave); font-size: 13px; }
+.campo .ajuda { color: var(--texto-suave); font-size: 13px; margin-bottom: 6px; }
+.campo input[type="text"], .campo textarea, .campo select {
+  width: 100%; padding: 10px 12px; font-size: 15px; font-family: inherit;
+  border: 1px solid var(--borda); border-radius: 8px; background: var(--cartao);
+  color: var(--texto);
+}
+.campo textarea { min-height: 96px; resize: vertical; }
+.campo input:focus, .campo textarea:focus, .campo select:focus {
+  outline: 2px solid var(--acento); outline-offset: 0; border-color: var(--acento);
+}
+.campo.com-problema input, .campo.com-problema textarea, .campo.com-problema select {
+  border-color: var(--erro);
+}
+.campo .ferramentas { margin-top: 6px; display: flex; gap: 10px; }
+.campo .ferramentas button {
+  border: none; background: none; color: var(--acento); cursor: pointer;
+  font-size: 13px; padding: 0;
+}
+.campo .ferramentas button:hover { text-decoration: underline; }
+
+.navegacao-rodape { display: flex; justify-content: space-between; margin-top: 30px; }
+
+/* ---------- painel de problemas ---------- */
+
+#painel-problemas {
+  width: 360px; flex-shrink: 0; background: var(--cartao);
+  border-left: 1px solid var(--borda); padding: 16px;
+  position: sticky; top: 0; height: 100vh; overflow-y: auto;
+}
+.painel-topo { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+
+#lista-problemas { list-style: none; padding: 0; }
+#lista-problemas li {
+  padding: 10px 12px; border-radius: 8px; margin-bottom: 8px;
+  font-size: 13.5px; cursor: pointer; border: 1px solid var(--borda);
+}
+#lista-problemas li:hover { border-color: var(--acento); }
+#lista-problemas li.erro { border-left: 4px solid var(--erro); }
+#lista-problemas li.aviso { border-left: 4px solid var(--aviso); }
+#lista-problemas li .nivel { font-weight: 700; font-size: 12px; }
+#lista-problemas li.erro .nivel { color: var(--erro); }
+#lista-problemas li.aviso .nivel { color: var(--aviso); }
+#lista-problemas .tudo-certo { border: none; color: var(--ok); font-weight: 600; cursor: default; }
+
+#saida-gerador { margin-top: 16px; }
+#saida-gerador pre {
+  background: var(--fundo); border-radius: 8px; padding: 12px;
+  font-size: 12px; white-space: pre-wrap; word-break: break-word;
+}
+#saida-gerador .rotulo { font-size: 12px; text-transform: uppercase;
+  letter-spacing: .05em; color: var(--texto-suave); margin-bottom: 6px; }
+
+/* ---------- montador de links ---------- */
+
+.lista-links { display: flex; flex-direction: column; gap: 8px; }
+.links-vazio { color: var(--texto-suave); font-size: 13.5px; padding: 4px 0; }
+
+.link-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 12px; background: var(--cartao);
+  border: 1px solid var(--borda); border-radius: 8px;
+}
+.link-tipo {
+  flex-shrink: 0; font-size: 12px; font-weight: 600;
+  color: var(--acento); background: #e8f0fd;
+  padding: 3px 10px; border-radius: 12px;
+}
+.link-textos { flex: 1; min-width: 0; }
+.link-textos strong { display: block; font-size: 14px; }
+.link-textos small {
+  display: block; color: var(--texto-suave); font-size: 12.5px;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.link-remover {
+  flex-shrink: 0; border: none; background: none; cursor: pointer;
+  color: var(--texto-suave); font-size: 14px; padding: 4px 6px; border-radius: 6px;
+}
+.link-remover:hover { color: var(--erro); background: #fdeaea; }
+
+.botao-add-link { align-self: flex-start; }
+
+.modal-link-caixa { max-width: 440px; }
+.modal-link-caixa .campo { margin-bottom: 16px; }
+.modal-link-caixa .obrigatorio { color: var(--erro); }
+.modal-acoes {
+  display: flex; justify-content: flex-end; gap: 10px;
+  margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--borda);
+}
+.link-erro { color: var(--erro); font-size: 13.5px; }
+
+/* ---------- modal do exemplo ---------- */
+
+.modal {
+  position: fixed; inset: 0; background: rgba(15, 23, 32, .45);
+  display: flex; align-items: center; justify-content: center; z-index: 50;
+}
+.modal-caixa {
+  background: var(--cartao); border-radius: 12px; padding: 20px;
+  max-width: 720px; width: 92%; max-height: 80vh; overflow-y: auto;
+}
+#texto-exemplo { white-space: pre-wrap; font-family: inherit; font-size: 14px;
+  background: var(--fundo); padding: 14px; border-radius: 8px; }

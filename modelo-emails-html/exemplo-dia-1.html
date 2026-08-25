@@ -1,0 +1,206 @@
+<!-- ASSUNTO: #7DaysOfCode - Prompt Engineering 1/7: 🧩 A anatomia de um prompt que funciona -->
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#EEF1F6;">
+  <tr>
+    <td align="center" style="padding:24px 16px;">
+      <div style="display:none;font-size:1px;color:#EEF1F6;line-height:1px;max-height:0px;max-width:0px;opacity:0;overflow:hidden;">Papel + Tarefa + Contexto: a fórmula mais simples para parar de receber respostas genéricas.</div>
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;background-color:#FFFFFF;">
+        <!-- Cabeçalho escuro: logo 7DoC + selo da tecnologia, clicável para a Alura -->
+        <tr>
+          <td style="background-color:#0C0C0E;">
+            <a href="https://www.alura.com.br/?utm_source=hubspot&utm_medium=email&utm_campaign=7doc_2026&utm_content=e1-desafio&utm_term=promptengineering" target="_blank" style="display:block;padding:20px 24px;text-decoration:none;">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                  <td><img src="https://7daysofcode.io/assets/img/background-7days.1750260030.svg" height="44" alt="7 Days of Code" style="display:block;border:0;" /></td>
+                  <td align="right">
+                    <span style="display:inline-block;padding:6px 14px;border:1px solid #1F53E5;border-radius:20px;font-family:Arial,Helvetica,sans-serif;font-size:11px;font-weight:bold;letter-spacing:0.5px;color:#9DB8FF;text-transform:uppercase;white-space:nowrap;">Prompt Engineering</span>
+                  </td>
+                </tr>
+              </table>
+            </a>
+          </td>
+        </tr>
+        <!-- Barra de progresso: Dia 1 de 7 -->
+        <tr>
+          <td style="padding:0;">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td height="6" width="14%" bgcolor="#1F53E5" style="font-size:0;line-height:0;">&nbsp;</td>
+                <td height="6" width="14%" bgcolor="#E4E7ED" style="font-size:0;line-height:0;">&nbsp;</td>
+                <td height="6" width="14%" bgcolor="#E4E7ED" style="font-size:0;line-height:0;">&nbsp;</td>
+                <td height="6" width="15%" bgcolor="#E4E7ED" style="font-size:0;line-height:0;">&nbsp;</td>
+                <td height="6" width="14%" bgcolor="#E4E7ED" style="font-size:0;line-height:0;">&nbsp;</td>
+                <td height="6" width="14%" bgcolor="#E4E7ED" style="font-size:0;line-height:0;">&nbsp;</td>
+                <td height="6" width="14%" bgcolor="#E4E7ED" style="font-size:0;line-height:0;">&nbsp;</td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <!-- Etiqueta do dia -->
+        <tr>
+          <td style="padding:20px 24px 0 24px;">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td style="font-family:Arial,Helvetica,sans-serif;font-size:12px;font-weight:bold;letter-spacing:0.5px;color:#1F53E5;text-transform:uppercase;">#7DaysOfCode &middot; Prompt Engineering</td>
+                <td align="right" style="font-family:Arial,Helvetica,sans-serif;font-size:11px;font-weight:bold;letter-spacing:1px;color:#8892A4;text-transform:uppercase;white-space:nowrap;">Dia 1 de 7</td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <!-- Abertura -->
+        <tr>
+          <td style="padding:18px 24px 0 24px;font-family:Arial,Helvetica,sans-serif;font-size:16px;line-height:26px;color:#3A4150;">
+            Olá, {{ contact.firstname }}! Boas-vindas ao #7DaysOfCode de Prompt Engineering!
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:16px 24px 0 24px;font-family:Arial,Helvetica,sans-serif;font-size:16px;line-height:26px;color:#3A4150;">
+            Nos próximos 7 dias você vai aprender uma técnica por dia e, o mais importante, cada desafio vai virar uma peça de um projeto maior. No Dia 7, você vai juntar tudo e sair daqui com um <strong>Tutor Pessoal de Carreira Tech</strong>: um Mega-Prompt sob medida, feito por você, que analisa seu momento e monta seu plano de estudos.
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:16px 24px 0 24px;font-family:Arial,Helvetica,sans-serif;font-size:16px;line-height:26px;color:#3A4150;">
+            Reserve de 20 a 30 minutos por dia. Bora começar?
+          </td>
+        </tr>
+        <!-- Gancho -->
+        <tr>
+          <td style="padding:16px 24px 0 24px;font-family:Arial,Helvetica,sans-serif;font-size:16px;line-height:26px;color:#3A4150;">
+            Quase todo mundo começa a usar IA do mesmo jeito: abre o chat e digita algo como "me ajuda a estudar programação". A resposta vem, mas costuma vir genérica.
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:16px 24px 0 24px;font-family:Arial,Helvetica,sans-serif;font-size:16px;line-height:26px;color:#3A4150;">
+            Na maioria das vezes, o problema nem é o modelo, mas a informação que ele recebeu. E existe uma estrutura simples que resolve boa parte disso.
+          </td>
+        </tr>
+        <!-- Conceito do dia -->
+        <tr>
+          <td style="padding:28px 24px 0 24px;">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#F7F9FC;border:1px solid #E4E7ED;border-radius:6px;">
+              <tr>
+                <td style="padding:20px 22px;">
+                  <span style="display:block;font-family:Arial,Helvetica,sans-serif;font-size:11px;font-weight:bold;letter-spacing:0.5px;color:#8892A4;text-transform:uppercase;">Conceito do dia</span>
+                  <span style="display:block;font-family:Arial,Helvetica,sans-serif;font-size:18px;font-weight:bold;color:#0C0C0E;padding-top:6px;">Framework PTC</span>
+                  <div style="font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:24px;color:#3A4150;padding-top:10px;">
+                    Um bom prompt tem três partes:
+                    <br/><br/>
+                    <strong style="color:#1F53E5;">P - Papel:</strong> quem a IA deve ser. Isso ajusta o nível técnico, o vocabulário e o tom da resposta. Um "professor para iniciantes" e um "arquiteto de software sênior" respondem a mesma pergunta de formas completamente diferentes.
+                    <br/><br/>
+                    <strong style="color:#1F53E5;">T - Tarefa:</strong> o que exatamente precisa ser feito. Use verbos de comando: analise, liste, compare, reescreva, diagnostique. Quanto mais preciso o verbo, menos a IA "chuta" o que você queria.
+                    <br/><br/>
+                    <strong style="color:#1F53E5;">C - Contexto:</strong> o cenário. Quem é você, de onde está partindo, quais são suas restrições (tempo, nível, objetivo). Isso é o que faz a resposta deixar de ser genérica.
+                    <br/><br/>
+                    A lógica é simples: a IA não te conhece. Tudo que ela sabe sobre você é o que você escreveu na caixa de texto.
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <!-- Desafio do dia -->
+        <tr>
+          <td style="padding:28px 24px 0 24px;font-family:Arial,Helvetica,sans-serif;font-size:12px;font-weight:bold;letter-spacing:0.5px;color:#1F53E5;text-transform:uppercase;">
+            Desafio do dia
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:10px 24px 0 24px;font-family:Arial,Helvetica,sans-serif;font-size:16px;line-height:26px;color:#3A4150;">
+            Escreva um prompt usando PTC para receber um diagnóstico do seu momento atual de carreira ou estudos. Copie o modelo abaixo e substitua o que está entre colchetes pela sua realidade:
+          </td>
+        </tr>
+        <!-- Bloco de prompt (código) -->
+        <tr>
+          <td style="padding:16px 24px 0 24px;">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#0C0C0E;border-radius:8px;">
+              <tr>
+                <td style="padding:18px 20px;font-family:Consolas,'Courier New',monospace;font-size:13px;line-height:20px;color:#E6E8EC;">
+                  <span style="color:#9DB8FF;">PAPEL:</span><br/>
+                  Você é um orientador de carreira em tecnologia, com experiência em ajudar pessoas em início de jornada a entender onde estão e o que priorizar. Sua linguagem é direta e acessível, sem jargões desnecessários.<br/>
+                  <br/>
+                  <span style="color:#9DB8FF;">TAREFA:</span><br/>
+                  Faça um diagnóstico do meu momento atual de carreira e estudos. Aponte 3 pontos fortes que eu já tenho, 3 lacunas que precisam de atenção e 1 risco que eu provavelmente não estou enxergando.<br/>
+                  <br/>
+                  <span style="color:#9DB8FF;">CONTEXTO:</span><br/>
+                  - Momento atual: [ex: trabalho com atendimento e quero migrar para tech]<br/>
+                  - O que já estudei: [ex: lógica de programação e HTML/CSS, há 3 meses]<br/>
+                  - Objetivo: [ex: conseguir minha primeira vaga como dev front-end]<br/>
+                  - Tempo disponível: [ex: 1h por dia durante a semana, 3h no sábado]<br/>
+                  - Maior dificuldade hoje: [ex: me perco na quantidade de conteúdo e não sei o que estudar primeiro]
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <!-- Saída esperada -->
+        <tr>
+          <td style="padding:16px 24px 0 24px;font-family:Arial,Helvetica,sans-serif;font-size:16px;line-height:26px;color:#3A4150;">
+            A saída esperada é um diagnóstico personalizado, com pontos fortes e lacunas que fazem sentido para o seu caso, sem conselhos genéricos.
+          </td>
+        </tr>
+        <!-- Importante -->
+        <tr>
+          <td style="padding:20px 24px 0 24px;">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#FFF8E6;border:1px solid #F0DFA8;border-radius:6px;">
+              <tr>
+                <td style="padding:16px 20px;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:22px;color:#5C4A12;">
+                  ⚠️ <strong>Importante:</strong> guarde o bloco CONTEXTO preenchido em um arquivo de texto. Ele é o seu <strong>Perfil Base de Contexto</strong> que usaremos no projeto do Dia 7. Você vai reaproveitá-lo todos os dias.
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <!-- Exercício opcional -->
+        <tr>
+          <td style="padding:20px 24px 0 24px;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:24px;color:#3A4150;">
+            <strong>Exercício opcional:</strong> rode também um prompt curto, algo como só "me dê um diagnóstico da minha carreira em tech", e compare as duas respostas lado a lado. A diferença é a evolução de prompt que aprendemos na aula de hoje.
+          </td>
+        </tr>
+        <!-- Dica -->
+        <tr>
+          <td style="padding:20px 24px 0 24px;">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#F0F5FF;border:1px solid #C9D8F8;border-radius:6px;">
+              <tr>
+                <td style="padding:16px 20px;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:22px;color:#27407E;">
+                  💡 <strong>Dica:</strong> Contexto vago gera resposta vaga. Troque "tenho pouco tempo" por "tenho 45 minutos por dia". Troque "quero aprender programação" por "quero aprender Python para análise de dados". Especificidade e direcionamento são combustíveis para um bom prompt.
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <!-- Links extras -->
+        <tr>
+          <td style="padding:20px 24px 0 24px;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:24px;color:#3A4150;">
+            <strong>Para saber mais</strong>, leia o artigo da Alura:<br/>
+            <!-- TODO: confirmar a URL final do artigo antes de publicar -->
+            <a href="https://www.alura.com.br/artigos" target="_blank" style="color:#1F53E5;text-decoration:underline;">Como criar um prompt: guia completo com dicas</a>
+          </td>
+        </tr>
+        <!-- Fechamento -->
+        <tr>
+          <td style="padding:26px 24px 0 24px;font-family:Arial,Helvetica,sans-serif;font-size:16px;line-height:26px;color:#3A4150;">
+            Bom trabalho e até amanhã!
+          </td>
+        </tr>
+        <!-- Assinatura -->
+        <tr>
+          <td style="padding:22px 24px 0 24px;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:20px;color:#3A4150;">
+            <span style="color:#0C0C0E;font-weight:bold;">Ricardo Bugan</span><br/>
+            <span style="color:#8892A4;">Especialista em IA na Alura</span>
+          </td>
+        </tr>
+        <!-- Rodapé de incentivo -->
+        <tr>
+          <td style="padding:26px 24px 24px 24px;">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#0C0C0E;border-radius:8px;">
+              <tr>
+                <td style="padding:18px 20px;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:22px;color:#E6E8EC;">
+                  Não se esqueça de compartilhar o seu programa no seu GitHub e nas redes com a hashtag <strong style="color:#9DB8FF;">#7DaysOfCode</strong>, e também <strong style="color:#9DB8FF;">#feedback7DoC</strong> caso queira ajuda.
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>

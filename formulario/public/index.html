@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Trilhas 7 Days of Code — Formulário</title>
+  <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+  <!-- Tela inicial: escolher rascunho ou começar trilha nova -->
+  <div id="tela-inicio" class="tela">
+    <main class="inicio">
+      <h1>7 Days of Code · Formulário de trilha</h1>
+      <p class="sub">Preencha o briefing da página e os 7 e-mails num lugar só.
+        Tudo é salvo automaticamente enquanto você escreve.</p>
+      <button id="botao-nova" class="botao primario">➕ Começar uma trilha nova</button>
+      <h2>Continuar um rascunho</h2>
+      <ul id="lista-rascunhos" class="lista-rascunhos"><li class="vazio">Carregando…</li></ul>
+      <h2>Recuperar de arquivos gerados</h2>
+      <p class="sub">Rascunho sumiu ou veio de outra máquina? Suba o que o formulário
+        gerou antes — o briefing (<code>.md</code>), o Word dos e-mails (<code>.docx</code>)
+        ou um rascunho (<code>.7doc.json</code>) — e os campos são preenchidos de volta.
+        Pode selecionar mais de um arquivo de uma vez.</p>
+      <input type="file" id="arquivos-importar" multiple accept=".md,.docx,.json" hidden>
+      <button id="botao-importar" class="botao">⬆ Subir arquivos gerados</button>
+    </main>
+  </div>
+
+  <!-- Tela do formulário -->
+  <div id="tela-form" class="tela oculta">
+    <aside id="menu">
+      <button id="botao-voltar" class="botao discreto">← Rascunhos</button>
+      <div id="titulo-trilha" class="titulo-trilha">Trilha sem nome</div>
+      <nav id="indice"></nav>
+      <div class="acoes">
+        <button id="botao-validar" class="botao">✓ Validar tudo</button>
+        <button id="botao-exportar" class="botao primario">📄 Gerar os arquivos</button>
+      </div>
+      <div id="salvo" class="salvo"></div>
+    </aside>
+    <main id="pagina"></main>
+    <aside id="painel-problemas" class="oculta">
+      <div class="painel-topo">
+        <strong id="problemas-titulo">Validação</strong>
+        <button id="fechar-problemas" class="botao discreto">✕</button>
+      </div>
+      <ul id="lista-problemas"></ul>
+      <div id="saida-gerador"></div>
+    </aside>
+  </div>
+
+  <!-- Modal do exemplo real -->
+  <div id="modal-exemplo" class="modal oculta">
+    <div class="modal-caixa">
+      <div class="painel-topo">
+        <strong>Exemplo real — Dia 2 de Lógica com JS (Rafa Ballerini)</strong>
+        <button id="fechar-exemplo" class="botao discreto">✕</button>
+      </div>
+      <pre id="texto-exemplo"></pre>
+    </div>
+  </div>
+
+  <!-- Modal de adicionar link externo -->
+  <div id="modal-link" class="modal oculta">
+    <div class="modal-caixa modal-link-caixa">
+      <div class="painel-topo">
+        <strong>➕ Adicionar Link Externo</strong>
+        <button id="fechar-link" class="botao discreto">✕</button>
+      </div>
+      <div class="campo">
+        <label for="link-titulo">Título do Material <span class="obrigatorio">*</span></label>
+        <input type="text" id="link-titulo" placeholder="Ex: Artigo sobre React...">
+      </div>
+      <div class="campo">
+        <label for="link-url">Link (URL) <span class="obrigatorio">*</span></label>
+        <input type="text" id="link-url" placeholder="https://...">
+      </div>
+      <div class="campo">
+        <label for="link-tipo">Tipo de Conteúdo</label>
+        <select id="link-tipo"></select>
+      </div>
+      <div id="link-erro" class="link-erro oculta"></div>
+      <div class="modal-acoes">
+        <button id="cancelar-link" class="botao">Cancelar</button>
+        <button id="adicionar-link" class="botao primario">+ Adicionar à Lista</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

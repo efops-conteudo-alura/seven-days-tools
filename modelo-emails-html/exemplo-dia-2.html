@@ -1,0 +1,233 @@
+<!-- ASSUNTO: #7DaysOfCode - Prompt Engineering 2/7: 🎭 Role Prompting: quem está falando com você? -->
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#EEF1F6;">
+  <tr>
+    <td align="center" style="padding:24px 16px;">
+      <div style="display:none;font-size:1px;color:#EEF1F6;line-height:1px;max-height:0px;max-width:0px;opacity:0;overflow:hidden;">Um papel bem descrito muda a resposta inteira. Hoje você constrói sua mentora.</div>
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;background-color:#FFFFFF;">
+        <!-- Cabeçalho escuro: logo 7DoC + selo da tecnologia, clicável para a Alura -->
+        <tr>
+          <td style="background-color:#0C0C0E;">
+            <a href="https://www.alura.com.br/?utm_source=hubspot&utm_medium=email&utm_campaign=7doc_2026&utm_content=e2-desafio&utm_term=promptengineering" target="_blank" style="display:block;padding:20px 24px;text-decoration:none;">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                  <td><img src="https://7daysofcode.io/assets/img/background-7days.1750260030.svg" height="44" alt="7 Days of Code" style="display:block;border:0;" /></td>
+                  <td align="right">
+                    <span style="display:inline-block;padding:6px 14px;border:1px solid #1F53E5;border-radius:20px;font-family:Arial,Helvetica,sans-serif;font-size:11px;font-weight:bold;letter-spacing:0.5px;color:#9DB8FF;text-transform:uppercase;white-space:nowrap;">Prompt Engineering</span>
+                  </td>
+                </tr>
+              </table>
+            </a>
+          </td>
+        </tr>
+        <!-- Barra de progresso: Dia 2 de 7 -->
+        <tr>
+          <td style="padding:0;">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td height="6" width="14%" bgcolor="#1F53E5" style="font-size:0;line-height:0;">&nbsp;</td>
+                <td height="6" width="14%" bgcolor="#1F53E5" style="font-size:0;line-height:0;">&nbsp;</td>
+                <td height="6" width="14%" bgcolor="#E4E7ED" style="font-size:0;line-height:0;">&nbsp;</td>
+                <td height="6" width="15%" bgcolor="#E4E7ED" style="font-size:0;line-height:0;">&nbsp;</td>
+                <td height="6" width="14%" bgcolor="#E4E7ED" style="font-size:0;line-height:0;">&nbsp;</td>
+                <td height="6" width="14%" bgcolor="#E4E7ED" style="font-size:0;line-height:0;">&nbsp;</td>
+                <td height="6" width="14%" bgcolor="#E4E7ED" style="font-size:0;line-height:0;">&nbsp;</td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <!-- Etiqueta do dia -->
+        <tr>
+          <td style="padding:20px 24px 0 24px;">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td style="font-family:Arial,Helvetica,sans-serif;font-size:12px;font-weight:bold;letter-spacing:0.5px;color:#1F53E5;text-transform:uppercase;">#7DaysOfCode &middot; Prompt Engineering</td>
+                <td align="right" style="font-family:Arial,Helvetica,sans-serif;font-size:11px;font-weight:bold;letter-spacing:1px;color:#8892A4;text-transform:uppercase;white-space:nowrap;">Dia 2 de 7</td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <!-- Abertura -->
+        <tr>
+          <td style="padding:18px 24px 0 24px;font-family:Arial,Helvetica,sans-serif;font-size:16px;line-height:26px;color:#3A4150;">
+            Oi, {{ contact.firstname }}. Ontem você montou seu Perfil Base de Contexto usando o PTC. Deu pra perceber a diferença entre a resposta do prompt estruturado e a do prompt solto?
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:16px 24px 0 24px;font-family:Arial,Helvetica,sans-serif;font-size:16px;line-height:26px;color:#3A4150;">
+            Se o resultado não veio como você esperava, um exemplo de solução do Dia 1 está no fim deste e-mail.
+          </td>
+        </tr>
+        <!-- Gancho -->
+        <tr>
+          <td style="padding:16px 24px 0 24px;font-family:Arial,Helvetica,sans-serif;font-size:16px;line-height:26px;color:#3A4150;">
+            No Dia 1, o Papel foi uma linha só: "orientador de carreira". Já melhorou bastante o resultado, mas ainda deixa muita coisa em aberto. O quanto essa pessoa é direta? No que ela presta atenção? O que ela evita dizer? Quem responde essas perguntas é você, e é isso que a técnica de hoje faz.
+          </td>
+        </tr>
+        <!-- Conceito do dia -->
+        <tr>
+          <td style="padding:28px 24px 0 24px;">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#F7F9FC;border:1px solid #E4E7ED;border-radius:6px;">
+              <tr>
+                <td style="padding:20px 22px;">
+                  <span style="display:block;font-family:Arial,Helvetica,sans-serif;font-size:11px;font-weight:bold;letter-spacing:0.5px;color:#8892A4;text-transform:uppercase;">Conceito do dia</span>
+                  <span style="display:block;font-family:Arial,Helvetica,sans-serif;font-size:18px;font-weight:bold;color:#0C0C0E;padding-top:6px;">Role Prompting</span>
+                  <div style="font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:24px;color:#3A4150;padding-top:10px;">
+                    Role Prompting é descrever a persona com detalhe suficiente para orientar as respostas. Quatro camadas dão conta do recado:
+                    <br/><br/>
+                    <strong style="color:#1F53E5;">Identidade e experiência:</strong> quem é, há quanto tempo atua, com que tipo de pessoa costuma trabalhar. Define o repertório que a IA vai puxar.
+                    <br/><br/>
+                    <strong style="color:#1F53E5;">Tom de voz:</strong> direto, acolhedor, provocativo. Define como a mensagem chega até você.
+                    <br/><br/>
+                    <strong style="color:#1F53E5;">Método:</strong> como essa pessoa trabalha: "sempre justifica a recomendação", "prioriza o que rende em 90 dias".
+                    <br/><br/>
+                    <strong style="color:#1F53E5;">Limites:</strong> o que ela não faz. É a camada que mais melhora o resultado e a que quase ninguém escreve.
+                    <br/><br/>
+                    Funciona porque, ao descrever um profissional específico, você aproxima a resposta do vocabulário e do modo de raciocinar que o modelo associa a esse perfil.
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <!-- Desafio do dia -->
+        <tr>
+          <td style="padding:28px 24px 0 24px;font-family:Arial,Helvetica,sans-serif;font-size:12px;font-weight:bold;letter-spacing:0.5px;color:#1F53E5;text-transform:uppercase;">
+            Desafio do dia
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:10px 24px 0 24px;font-family:Arial,Helvetica,sans-serif;font-size:16px;line-height:26px;color:#3A4150;">
+            Construa a persona da sua mentora e peça que ela transforme o diagnóstico de ontem em dois planos, um de hard skills e um de soft skills.
+          </td>
+        </tr>
+        <!-- Bloco de prompt (código) -->
+        <tr>
+          <td style="padding:16px 24px 0 24px;">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#0C0C0E;border-radius:8px;">
+              <tr>
+                <td style="padding:18px 20px;font-family:Consolas,'Courier New',monospace;font-size:13px;line-height:20px;color:#E6E8EC;">
+                  <span style="color:#9DB8FF;">PAPEL (PERSONA):</span><br/>
+                  Você é Marina, mentora sênior de tecnologia com 12 anos de experiência. Já foi desenvolvedora, hoje lidera times e orienta pessoas em transição de carreira. Seu tom é acolhedor e honesto: você não romantiza o mercado nem promete atalhos.<br/>
+                  <br/>
+                  Seu método:<br/>
+                  - Você sempre justifica uma recomendação com o motivo por trás dela.<br/>
+                  - Você prioriza o que gera resultado prático em até 90 dias.<br/>
+                  - Você separa o que é essencial do que é "bom ter depois".<br/>
+                  <br/>
+                  Seus limites:<br/>
+                  - Você NÃO recomenda estudar mais de 3 tecnologias ao mesmo tempo.<br/>
+                  - Você NÃO usa frases motivacionais vazias.<br/>
+                  - Você NÃO sugere ferramenta paga sem apontar uma alternativa gratuita.<br/>
+                  <br/>
+                  <span style="color:#9DB8FF;">TAREFA:</span><br/>
+                  Com base no diagnóstico abaixo, monte dois planos separados:<br/>
+                  1. HARD SKILLS: as 3 competências técnicas que eu devo desenvolver primeiro, em ordem de prioridade, com a justificativa de cada uma.<br/>
+                  2. SOFT SKILLS: as 2 competências comportamentais mais críticas para o meu momento, com uma ação concreta de treino para cada.<br/>
+                  <br/>
+                  <span style="color:#9DB8FF;">CONTEXTO:</span><br/>
+                  [cole aqui o seu Perfil Base de Contexto do Dia 1]<br/>
+                  <br/>
+                  <span style="color:#9DB8FF;">DIAGNÓSTICO:</span><br/>
+                  [cole aqui a resposta que você recebeu no Dia 1]
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <!-- Saída esperada -->
+        <tr>
+          <td style="padding:16px 24px 0 24px;font-family:Arial,Helvetica,sans-serif;font-size:16px;line-height:26px;color:#3A4150;">
+            A saída esperada são dois planos priorizados, cada item com a justificativa, escritos no tom de alguém específico.
+          </td>
+        </tr>
+        <!-- Importante -->
+        <tr>
+          <td style="padding:20px 24px 0 24px;">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#FFF8E6;border:1px solid #F0DFA8;border-radius:6px;">
+              <tr>
+                <td style="padding:16px 20px;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:22px;color:#5C4A12;">
+                  ⚠️ <strong>Importante:</strong> guarde a persona que você escreveu no mesmo arquivo de ontem. Você vai reaproveitá-la nos próximos dias e no projeto do Dia 7.
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <!-- Exercício opcional -->
+        <tr>
+          <td style="padding:20px 24px 0 24px;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:24px;color:#3A4150;">
+            <strong>Exercício opcional:</strong> rode o mesmo prompt trocando a Marina por "um recrutador tech que analisa currículos há 10 anos". A ordem das prioridades muda. A persona é uma escolha sobre qual ponto de vista você quer ouvir.
+          </td>
+        </tr>
+        <!-- Dica -->
+        <tr>
+          <td style="padding:20px 24px 0 24px;">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#F0F5FF;border:1px solid #C9D8F8;border-radius:6px;">
+              <tr>
+                <td style="padding:16px 20px;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:22px;color:#27407E;">
+                  💡 <strong>Dica:</strong> A camada de limites é a que mais economiza retrabalho. Regras do tipo "você NÃO recomenda mais de 3 tecnologias ao mesmo tempo" cortam logo os vícios mais comuns: listas quilométricas, otimismo genérico e respostas que agradam em vez de ajudar.
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <!-- Links extras -->
+        <tr>
+          <td style="padding:20px 24px 0 24px;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:24px;color:#3A4150;">
+            <strong>Para saber mais:</strong><br/>
+            <a href="https://www.alura.com.br/artigos/engenharia-prompt" target="_blank" style="color:#1F53E5;text-decoration:underline;">O que é Engenharia de Prompt e quais as suas principais técnicas?</a><br/>
+            <a href="https://cloud.google.com/vertex-ai/generative-ai/docs/learn/prompts/prompt-design-strategies?hl=pt-br#chain-of-thought" target="_blank" style="color:#1F53E5;text-decoration:underline;">Documentação do Google sobre Raciocínio Passo a Passo</a>
+          </td>
+        </tr>
+        <!-- Solução do dia anterior -->
+        <tr>
+          <td style="padding:28px 24px 0 24px;">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#F7F9FC;border:1px solid #E4E7ED;border-radius:6px;">
+              <tr>
+                <td style="padding:20px 22px;">
+                  <span style="display:block;font-family:Arial,Helvetica,sans-serif;font-size:11px;font-weight:bold;letter-spacing:0.5px;color:#8892A4;text-transform:uppercase;">Solução do dia anterior</span>
+                  <div style="font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:24px;color:#3A4150;padding-top:10px;">
+                    No Dia 1 o objetivo não era acertar um prompt perfeito, e sim perceber que o contexto é o que personaliza a resposta. Os prompts que funcionaram melhor tinham um papel que definia o nível de linguagem, uma tarefa com número exato de itens ("3 pontos fortes, 3 lacunas") e um contexto com dados concretos: tempo disponível por dia, o que já foi estudado, objetivo real.
+                    <br/><br/>
+                    O deslize mais comum foi deixar o contexto no automático, tipo "quero aprender programação". Quanto mais específico o cenário, mais útil o diagnóstico.
+                  </div>
+                  <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin-top:14px;">
+                    <tr>
+                      <td align="center" bgcolor="#1F53E5" style="background-color:#1F53E5;border-radius:24px;">
+                        <a href="https://github.com/7-days-of-code/prompt-engineering/tree/solucao-dia-1" target="_blank" style="display:block;padding:11px 24px;font-family:Arial,Helvetica,sans-serif;font-size:13px;font-weight:bold;color:#FFFFFF;text-decoration:none;white-space:nowrap;">Ver a solução completa &rarr;</a>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <!-- Fechamento -->
+        <tr>
+          <td style="padding:26px 24px 0 24px;font-family:Arial,Helvetica,sans-serif;font-size:16px;line-height:26px;color:#3A4150;">
+            Bom trabalho e até amanhã.
+          </td>
+        </tr>
+        <!-- Assinatura -->
+        <tr>
+          <td style="padding:22px 24px 0 24px;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:20px;color:#3A4150;">
+            <span style="color:#0C0C0E;font-weight:bold;">Ricardo Bugan</span><br/>
+            <span style="color:#8892A4;">Especialista em IA na Alura</span>
+          </td>
+        </tr>
+        <!-- Rodapé de incentivo -->
+        <tr>
+          <td style="padding:26px 24px 24px 24px;">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#0C0C0E;border-radius:8px;">
+              <tr>
+                <td style="padding:18px 20px;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:22px;color:#E6E8EC;">
+                  Não se esqueça de compartilhar o seu programa no seu GitHub e nas redes com a hashtag <strong style="color:#9DB8FF;">#7DaysOfCode</strong>, e também <strong style="color:#9DB8FF;">#feedback7DoC</strong> caso queira ajuda.
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>

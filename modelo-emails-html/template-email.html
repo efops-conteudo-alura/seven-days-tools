@@ -1,0 +1,242 @@
+<!--
+  TEMPLATE DE E-MAIL DIÁRIO — 7 DAYS OF CODE
+  ==========================================
+  Baseado no roteiro "E-mails <tecnologia> — 7 Days of Code (sequência dos 7 dias)".
+  Um HTML destes por dia da trilha. A equipe de marketing cola no HubSpot.
+
+  Como usar: substitua todos os marcadores no formato [[NOME_DO_MARCADOR]].
+  O marcador {{ contact.firstname }} é o token de nome do HubSpot ("[nome]" no
+  roteiro) e deve ficar como está.
+
+  O rodapé legal (endereço + descadastro) NÃO está neste template: o HubSpot
+  acrescenta o dele automaticamente.
+
+  Configuração fixa (fora do HTML, no HubSpot):
+    Remetente: Ricardo Bugan <contato@7daysofcode.io>
+    Responder para: contato@7daysofcode.io
+
+  Marcadores:
+    [[ASSUNTO]]            - assunto do e-mail (fica em comentário, para referência)
+    [[PREHEADER]]          - frase da prévia da caixa de entrada (invisível no corpo)
+    [[TECNOLOGIA]]         - selo no cabeçalho, ex.: Prompt Engineering
+    [[TECNOLOGIA_UTM]]     - tecnologia para a UTM: minúsculas, sem hífens nem
+                             acentos, ex.: promptengineering
+    [[DIA]]                - número do dia (1 a 7); também entra na UTM
+                             (utm_content=e[[DIA]]-desafio)
+    Barra de progresso     - pinte de azul (#1F53E5) as células dos dias já
+                             liberados, incluindo o atual; deixe cinza (#E4E7ED)
+                             as demais. Ajuste também o rótulo "DIA X DE 7".
+    [[ABERTURA]]           - saudação e texto de abertura
+    [[GANCHO]]             - introdução ao tema do dia
+    [[NOME_DO_CONCEITO]]   - ex.: Framework PTC
+    [[TEXTO_DO_CONCEITO]]  - explicação do conceito (pode ter vários parágrafos/itens)
+    [[TEXTO_DO_DESAFIO]]   - enunciado do desafio do dia
+    [[PROMPT_DO_DIA]]      - o prompt modelo, no bloco escuro de código
+                             (quebras de linha viram <br/>; indente com &nbsp;)
+    [[SAIDA_ESPERADA]]     - parágrafo descrevendo a saída esperada
+    [[IMPORTANTE]]         - aviso do que guardar para o Dia 7 (caixa amarela)
+    [[EXERCICIO_OPCIONAL]] - (opcional) exercício bônus — apague o bloco se não houver
+    [[DICA]]               - (opcional) dica do dia — apague o bloco se não houver
+    [[LINKS_EXTRAS]]       - (opcional) links "para saber mais" — apague se não houver
+    [[SOLUCAO_ANTERIOR]]   - (opcional) comentário da solução do dia anterior;
+                             no Dia 1 apague o bloco inteiro
+    [[URL_SOLUCAO]]        - link do GitHub com a solução do dia anterior
+    [[FECHAMENTO]]         - frase final, ex.: Bom trabalho e até amanhã!
+-->
+<!-- ASSUNTO: [[ASSUNTO]] -->
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#EEF1F6;">
+  <tr>
+    <td align="center" style="padding:24px 16px;">
+      <div style="display:none;font-size:1px;color:#EEF1F6;line-height:1px;max-height:0px;max-width:0px;opacity:0;overflow:hidden;">[[PREHEADER]]</div>
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;background-color:#FFFFFF;">
+        <!-- Cabeçalho escuro: logo 7DoC + selo da tecnologia, clicável para a Alura -->
+        <tr>
+          <td style="background-color:#0C0C0E;">
+            <a href="https://www.alura.com.br/?utm_source=hubspot&utm_medium=email&utm_campaign=7doc_2026&utm_content=e[[DIA]]-desafio&utm_term=[[TECNOLOGIA_UTM]]" target="_blank" style="display:block;padding:20px 24px;text-decoration:none;">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                  <td><img src="https://7daysofcode.io/assets/img/background-7days.1750260030.svg" height="44" alt="7 Days of Code" style="display:block;border:0;" /></td>
+                  <td align="right">
+                    <span style="display:inline-block;padding:6px 14px;border:1px solid #1F53E5;border-radius:20px;font-family:Arial,Helvetica,sans-serif;font-size:11px;font-weight:bold;letter-spacing:0.5px;color:#9DB8FF;text-transform:uppercase;white-space:nowrap;">[[TECNOLOGIA]]</span>
+                  </td>
+                </tr>
+              </table>
+            </a>
+          </td>
+        </tr>
+        <!-- Barra de progresso (7 células, uma por dia) -->
+        <tr>
+          <td style="padding:0;">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td height="6" width="14%" bgcolor="#1F53E5" style="font-size:0;line-height:0;">&nbsp;</td>
+                <td height="6" width="14%" bgcolor="#E4E7ED" style="font-size:0;line-height:0;">&nbsp;</td>
+                <td height="6" width="14%" bgcolor="#E4E7ED" style="font-size:0;line-height:0;">&nbsp;</td>
+                <td height="6" width="15%" bgcolor="#E4E7ED" style="font-size:0;line-height:0;">&nbsp;</td>
+                <td height="6" width="14%" bgcolor="#E4E7ED" style="font-size:0;line-height:0;">&nbsp;</td>
+                <td height="6" width="14%" bgcolor="#E4E7ED" style="font-size:0;line-height:0;">&nbsp;</td>
+                <td height="6" width="14%" bgcolor="#E4E7ED" style="font-size:0;line-height:0;">&nbsp;</td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <!-- Etiqueta do dia -->
+        <tr>
+          <td style="padding:20px 24px 0 24px;">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td style="font-family:Arial,Helvetica,sans-serif;font-size:12px;font-weight:bold;letter-spacing:0.5px;color:#1F53E5;text-transform:uppercase;">#7DaysOfCode &middot; [[TECNOLOGIA]]</td>
+                <td align="right" style="font-family:Arial,Helvetica,sans-serif;font-size:11px;font-weight:bold;letter-spacing:1px;color:#8892A4;text-transform:uppercase;white-space:nowrap;">Dia [[DIA]] de 7</td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <!-- Abertura -->
+        <tr>
+          <td style="padding:18px 24px 0 24px;font-family:Arial,Helvetica,sans-serif;font-size:16px;line-height:26px;color:#3A4150;">
+            [[ABERTURA]]
+          </td>
+        </tr>
+        <!-- Gancho -->
+        <tr>
+          <td style="padding:16px 24px 0 24px;font-family:Arial,Helvetica,sans-serif;font-size:16px;line-height:26px;color:#3A4150;">
+            [[GANCHO]]
+          </td>
+        </tr>
+        <!-- Conceito do dia -->
+        <tr>
+          <td style="padding:28px 24px 0 24px;">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#F7F9FC;border:1px solid #E4E7ED;border-radius:6px;">
+              <tr>
+                <td style="padding:20px 22px;">
+                  <span style="display:block;font-family:Arial,Helvetica,sans-serif;font-size:11px;font-weight:bold;letter-spacing:0.5px;color:#8892A4;text-transform:uppercase;">Conceito do dia</span>
+                  <span style="display:block;font-family:Arial,Helvetica,sans-serif;font-size:18px;font-weight:bold;color:#0C0C0E;padding-top:6px;">[[NOME_DO_CONCEITO]]</span>
+                  <div style="font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:24px;color:#3A4150;padding-top:10px;">
+                    [[TEXTO_DO_CONCEITO]]
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <!-- Desafio do dia -->
+        <tr>
+          <td style="padding:28px 24px 0 24px;font-family:Arial,Helvetica,sans-serif;font-size:12px;font-weight:bold;letter-spacing:0.5px;color:#1F53E5;text-transform:uppercase;">
+            Desafio do dia
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:10px 24px 0 24px;font-family:Arial,Helvetica,sans-serif;font-size:16px;line-height:26px;color:#3A4150;">
+            [[TEXTO_DO_DESAFIO]]
+          </td>
+        </tr>
+        <!-- Bloco de prompt (código) -->
+        <tr>
+          <td style="padding:16px 24px 0 24px;">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#0C0C0E;border-radius:8px;">
+              <tr>
+                <td style="padding:18px 20px;font-family:Consolas,'Courier New',monospace;font-size:13px;line-height:20px;color:#E6E8EC;">
+                  [[PROMPT_DO_DIA]]
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <!-- Saída esperada -->
+        <tr>
+          <td style="padding:16px 24px 0 24px;font-family:Arial,Helvetica,sans-serif;font-size:16px;line-height:26px;color:#3A4150;">
+            [[SAIDA_ESPERADA]]
+          </td>
+        </tr>
+        <!-- Importante (guardar para o Dia 7) -->
+        <tr>
+          <td style="padding:20px 24px 0 24px;">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#FFF8E6;border:1px solid #F0DFA8;border-radius:6px;">
+              <tr>
+                <td style="padding:16px 20px;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:22px;color:#5C4A12;">
+                  ⚠️ <strong>Importante:</strong> [[IMPORTANTE]]
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <!-- INÍCIO BLOCO OPCIONAL: exercício opcional -->
+        <tr>
+          <td style="padding:20px 24px 0 24px;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:24px;color:#3A4150;">
+            <strong>Exercício opcional:</strong> [[EXERCICIO_OPCIONAL]]
+          </td>
+        </tr>
+        <!-- FIM BLOCO OPCIONAL: exercício opcional -->
+        <!-- INÍCIO BLOCO OPCIONAL: dica -->
+        <tr>
+          <td style="padding:20px 24px 0 24px;">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#F0F5FF;border:1px solid #C9D8F8;border-radius:6px;">
+              <tr>
+                <td style="padding:16px 20px;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:22px;color:#27407E;">
+                  💡 <strong>Dica:</strong> [[DICA]]
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <!-- FIM BLOCO OPCIONAL: dica -->
+        <!-- INÍCIO BLOCO OPCIONAL: links extras -->
+        <tr>
+          <td style="padding:20px 24px 0 24px;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:24px;color:#3A4150;">
+            <strong>Para saber mais:</strong><br/>
+            [[LINKS_EXTRAS]]
+          </td>
+        </tr>
+        <!-- FIM BLOCO OPCIONAL: links extras -->
+        <!-- INÍCIO BLOCO OPCIONAL: solução do dia anterior (apague no Dia 1) -->
+        <tr>
+          <td style="padding:28px 24px 0 24px;">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#F7F9FC;border:1px solid #E4E7ED;border-radius:6px;">
+              <tr>
+                <td style="padding:20px 22px;">
+                  <span style="display:block;font-family:Arial,Helvetica,sans-serif;font-size:11px;font-weight:bold;letter-spacing:0.5px;color:#8892A4;text-transform:uppercase;">Solução do dia anterior</span>
+                  <div style="font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:24px;color:#3A4150;padding-top:10px;">
+                    [[SOLUCAO_ANTERIOR]]
+                  </div>
+                  <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin-top:14px;">
+                    <tr>
+                      <td align="center" bgcolor="#1F53E5" style="background-color:#1F53E5;border-radius:24px;">
+                        <a href="[[URL_SOLUCAO]]" target="_blank" style="display:block;padding:11px 24px;font-family:Arial,Helvetica,sans-serif;font-size:13px;font-weight:bold;color:#FFFFFF;text-decoration:none;white-space:nowrap;">Ver a solução completa &rarr;</a>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <!-- FIM BLOCO OPCIONAL: solução do dia anterior -->
+        <!-- Fechamento -->
+        <tr>
+          <td style="padding:26px 24px 0 24px;font-family:Arial,Helvetica,sans-serif;font-size:16px;line-height:26px;color:#3A4150;">
+            [[FECHAMENTO]]
+          </td>
+        </tr>
+        <!-- Assinatura -->
+        <tr>
+          <td style="padding:22px 24px 0 24px;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:20px;color:#3A4150;">
+            <span style="color:#0C0C0E;font-weight:bold;">Ricardo Bugan</span><br/>
+            <span style="color:#8892A4;">Especialista em IA na Alura</span>
+          </td>
+        </tr>
+        <!-- Rodapé de incentivo -->
+        <tr>
+          <td style="padding:26px 24px 24px 24px;">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#0C0C0E;border-radius:8px;">
+              <tr>
+                <td style="padding:18px 20px;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:22px;color:#E6E8EC;">
+                  Não se esqueça de compartilhar o seu programa no seu GitHub e nas redes com a hashtag <strong style="color:#9DB8FF;">#7DaysOfCode</strong>, e também <strong style="color:#9DB8FF;">#feedback7DoC</strong> caso queira ajuda.
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
