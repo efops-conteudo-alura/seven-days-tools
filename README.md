@@ -4,9 +4,9 @@ Este guia leva você do zero até a trilha no ar, mesmo sem saber programar. O c
 
 > **O que é uma "trilha"?**
 > É um desafio de 7 dias sobre um tema (ex.: Java, React). Ela tem **duas entregas**:
-> a **página de inscrição** (que mora neste repositório e vira o site) e os **7 e-mails**
-> (que viram um documento Word de revisão **e 7 HTMLs prontos** para o marketing colar no HubSpot).
-> O formulário preenche as duas de uma vez.
+> a **página de inscrição** (que mora neste repositório e vira o site) e os **e-mails**
+> (que viram um documento Word de revisão **e 8 HTMLs prontos** — os 7 dias + a conclusão —
+> para o marketing colar no HubSpot). O formulário preenche as duas de uma vez.
 
 > 📋 **Procurando o processo, e não os comandos?**
 > Quem pede a trilha, tarefa no ClickUp, backup no SharePoint, quem faz o quê — tudo isso está no
@@ -43,9 +43,9 @@ node formulario/servidor.js
 
 O navegador abre sozinho. Clique em **"➕ Começar uma trilha nova"**.
 
-### 2. Preencha as 11 páginas
+### 2. Preencha as 12 páginas
 
-O índice na lateral esquerda mostra tudo o que existe para preencher: 3 páginas de briefing (a página de inscrição), 1 de configuração dos e-mails e 1 para cada um dos 7 dias. A bolinha ao lado de cada página mostra o andamento: vazia, amarela (parcial) ou verde (completa).
+O índice na lateral esquerda mostra tudo o que existe para preencher: 3 páginas de briefing (a página de inscrição), 1 de configuração dos e-mails, 1 para cada um dos 7 dias e 1 de conclusão (o e-mail de encerramento). A bolinha ao lado de cada página mostra o andamento: vazia, amarela (parcial) ou verde (completa).
 
 Enquanto preenche:
 
@@ -64,9 +64,20 @@ Dois campos da página *Identidade* merecem atenção especial:
 - **slug** — o endereço da página (`/matricula/<slug>`). Só letras minúsculas, números e hífens.
 - **codigo** — o identificador do ícone. **Combine com o design antes**, porque o arquivo do ícone precisa se chamar exatamente `icon-<codigo>-card.svg`. Na dúvida, use o mesmo valor do slug.
 
+#### ⚠️ Os 2 campos que ficam em alerta de propósito
+
+Dois campos da página *Identidade* **vão aparecer com alerta laranja na validação mesmo com a trilha preenchida por completo**. Isso é esperado e **não impede de gerar os arquivos**: eles são preenchidos depois, por outra pessoa da equipe. Não tente "forçar" para tirar o alerta — deixe como está:
+
+| Campo | Por que fica em alerta | Quem preenche / quando |
+|---|---|---|
+| **`formId` do HubSpot** | O formulário já começa com o texto `PREENCHER-DEPOIS`; sem ele a página carrega mas o botão de inscrição não funciona | O responsável pelo **HubSpot**, assim que criar o formulário de inscrição. Use o valor real no lugar de `PREENCHER-DEPOIS` |
+| **`codigo` (ícone)** | Alerta de lembrança: confirma que o arquivo `icon-<codigo>-card.svg` foi commitado no repositório do site | **Design** sobe o ícone por Pull Request no `caelum/alura-site` (Etapa 6) |
+
+Enquanto esses dois não são preenchidos, a página *Identidade* fica com a bolinha "parcial" (amarela) — está tudo certo, o preenchimento foi concluído; só faltam as dependências de fora.
+
 ### 3. Valide
 
-Clique em **"✓ Validar tudo"**. Cada problema aparece no painel à direita — clicar nele leva direto ao campo culpado. **Erros** quebram a entrega (ex.: dia 5 com assunto "4/7", `[Nome]` grafado errado); **avisos** valem conferir (ex.: assunto comprido demais). No fim do painel, a "prova real": o gerador oficial da página confirma que aceita o briefing.
+Clique em **"✓ Validar tudo"**. Cada problema aparece no painel à direita — clicar nele leva direto ao campo culpado. **Erros** quebram a entrega (ex.: dia 5 com assunto "4/7", `[Nome]` grafado errado, campo obrigatório vazio); **avisos** valem conferir, mas nem todos precisam ser resolvidos agora: os **avisos de `formId` e de `codigo`** ficam laranja de propósito (veja acima) e, por enquanto, os demais avisos na página de Conclusão somem conforme você preenche os textos de encerramento. No fim do painel, a "prova real": o gerador oficial da página confirma que aceita o briefing.
 
 ### 4. Gere os arquivos
 
@@ -75,8 +86,8 @@ Clique em **"📄 Gerar os arquivos"**. Saem três:
 | Arquivo | O que é | Para onde vai |
 |---|---|---|
 | `briefings/<slug>.md` | O briefing da página | Fica aqui; alimenta o passo 5 |
-| `saida/E-mails — <Trilha>.docx` | O roteiro dos 7 e-mails, para revisão | Suba na pasta do 7 Days of Code no SharePoint |
-| `saida/<slug>-html/` | **7 HTMLs prontos** (`dia-1.html` a `dia-7.html`), com visual, logo e UTMs | Marketing cola cada um no e-mail correspondente do HubSpot |
+| `saida/E-mails — <Trilha>.docx` | O roteiro dos 8 e-mails (7 dias + conclusão), para revisão | Suba na pasta do 7 Days of Code no SharePoint |
+| `saida/<slug>-html/` | **8 HTMLs prontos** (`dia-1.html` a `dia-7.html` + `conclusao.html`), com visual, logo e UTMs | Marketing cola cada um no e-mail correspondente do HubSpot |
 
 Os HTMLs já saem sem o rodapé de endereço/descadastro — o HubSpot acrescenta o dele automaticamente.
 
@@ -84,8 +95,8 @@ Os HTMLs já saem sem o rodapé de endereço/descadastro — o HubSpot acrescent
 > A tela inicial tem o botão **"⬆ Subir arquivos gerados"**: selecione o briefing (`.md`),
 > o Word dos e-mails (`.docx`) e/ou um rascunho (`.7doc.json`) e o formulário preenche
 > todos os campos de volta — sem redigitar nada. Pode enviar mais de um arquivo de uma
-> vez (o `.md` recupera a página, o `.docx` recupera os 7 e-mails). Funciona até com um
-> `.docx` que alguém editou e salvou de novo no Word.
+> vez (o `.md` recupera a página, o `.docx` recupera os 8 e-mails — os 7 dias + a conclusão).
+> Funciona até com um `.docx` que alguém editou e salvou de novo no Word.
 
 ### 5. Gere a página do site
 
@@ -99,9 +110,9 @@ O `--teste` mostra o que seria criado, sem gravar. Se estiver tudo certo, rode d
 
 ### 6. Confirme as dependências externas
 
-Antes de anunciar a trilha, três coisas de fora precisam estar no lugar:
+Antes de anunciar a trilha, três coisas de fora precisam estar no lugar. As duas primeiras são exatamente os campos que ficavam em alerta no formulário:
 
-1. **`formId` do HubSpot** — sem ele a página abre, mas o botão de inscrição não funciona. Se recebeu depois de gerar, preencha no formulário e repita os passos 4 e 5 (use `--forcar` no gerador).
+1. **`formId` do HubSpot** — sem ele a página abre, mas o botão de inscrição não funciona. Se recebeu depois de gerar, **preencha o valor real no lugar de `PREENCHER-DEPOIS`** no formulário e repita os passos 4 e 5 (use `--forcar` no gerador para regravar).
 2. **Ícone e foto no `alura-site`** — os visuais moram em outro repositório (`caelum/alura-site` → `7daysofcode/assets/img/`) e entram lá **por Pull Request revisado**, que depende de aprovação de outra pessoa. Abra esse PR cedo. O passo a passo está no [FLUXO-DE-TRABALHO.md](FLUXO-DE-TRABALHO.md), Etapa 5. Se o ícone não estiver lá, a página publica sem erro e o card fica quebrado.
 3. **Soluções dos desafios** — publicadas em `github.com/7-days-of-code`, um repositório por trilha com uma branch por dia (`solucao-dia-1` … `solucao-dia-7`); os e-mails apontam para a branch do dia.
 
@@ -122,9 +133,9 @@ Abra a página no ar, confira textos, ícone e foto — e **se inscreva com um e
 
 ---
 
-## 📧 Onde vivem os e-mails dos 7 dias?
+## 📧 Onde vivem os e-mails?
 
-Este repositório só tem a **página de inscrição**. Os 7 e-mails são montados e disparados no **HubSpot**: o marketing monta o *workflow* (um e-mail por dia, a partir da inscrição) usando os arquivos do passo 4 — o `.docx` para revisar o texto e os **HTMLs da pasta `saida/<slug>-html/` para colar direto no editor** de cada e-mail. O template visual de referência fica em `modelo-emails-html/`, aqui nesta pasta.
+Este repositório só tem a **página de inscrição**. Os e-mails são montados e disparados no **HubSpot**: o marketing monta o *workflow* (um e-mail por dia + o de conclusão, a partir da inscrição) usando os arquivos do passo 4 — o `.docx` para revisar o texto e os **HTMLs da pasta `saida/<slug>-html/` para colar direto no editor** de cada e-mail. O template visual de referência fica em `modelo-emails-html/`, aqui nesta pasta.
 
 **Pendência:** ainda falta acesso ao painel do HubSpot para ver por dentro como o workflow é montado. Sem isso, a parte dos e-mails de uma trilha nova depende do marketing.
 

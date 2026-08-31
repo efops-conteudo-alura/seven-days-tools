@@ -89,9 +89,11 @@ function documentoXml(dados) {
   const b = dados.briefing || {};
   const cfg = (dados.emails && dados.emails.config) || {};
   const dias = (dados.emails && dados.emails.dias) || [];
+  const concl = (dados.emails && dados.emails.conclusao) || {};
   const trilha = (b['nome-do-curso'] || '').trim() || 'Trilha sem nome';
   const paginas = todasAsPaginas();
   const pagConfig = paginas.find((p) => p.id === 'emails-config');
+  const pagConcl = paginas.find((p) => p.id === 'email-conclusao');
 
   const P = [];
   P.push(par([{ texto: 'E-mails — ' + trilha + ' (7 Days of Code)' }], 'Titulo7doc'));
@@ -123,6 +125,18 @@ function documentoXml(dados) {
       } else {
         P.push(campoPar(c.rotulo, valor));
       }
+    }
+  }
+
+  // PARTE 3 — e-mail de conclusão (depois do Dia 7)
+  P.push(par([{ texto: 'PARTE 3 — E-mail de Conclusão (após o Dia 7)' }], 'Titulo1'));
+  P.push(par([{ texto: 'E-mail de Conclusão' }], 'Titulo2'));
+  for (const c of pagConcl.campos) {
+    const valor = concl[c.chave];
+    if (!c.obrigatorio && !String(valor == null ? '' : valor).trim()) {
+      P.push(campoPar(c.rotulo, '—'));
+    } else {
+      P.push(campoPar(c.rotulo, valor));
     }
   }
 

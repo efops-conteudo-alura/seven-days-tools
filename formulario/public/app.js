@@ -39,11 +39,23 @@ async function api(rota, corpo) {
 function balde(pagina) {
   if (pagina.dominio === 'briefing') return estado.dados.briefing;
   if (pagina.dominio === 'config') return estado.dados.emails.config;
+  if (pagina.dominio === 'conclusao') {
+    // Rascunhos mais antigos não têm este balde; cria na hora.
+    if (!estado.dados.emails.conclusao) estado.dados.emails.conclusao = {};
+    return estado.dados.emails.conclusao;
+  }
   return estado.dados.emails.dias[pagina.dia - 1];
 }
 
 function valorDe(pagina, chave) {
-  return (balde(pagina) || {})[chave] || '';
+  const valor = (balde(pagina) || {})[chave];
+  // Campo com valor-padrão fixo (ex.: o chamado final da conclusão): se ainda
+  // estiver vazio (rascunho antigo sem esse balde), mostra o padrão já escrito.
+  if (valor === undefined || valor === '') {
+    const campo = (pagina.campos || []).find((c) => c.chave === chave);
+    if (campo && campo.padrao !== undefined) return campo.padrao;
+  }
+  return valor || '';
 }
 
 // "Tem conteúdo?" — vale para texto e para listas (campos tipo 'links').
@@ -157,7 +169,9 @@ function montarIndice() {
   nav.innerHTML = '';
   let secaoAtual = '';
   for (const pag of estado.paginas) {
-    const secao = pag.dominio === 'briefing' ? 'Briefing (página de inscrição)' : 'Os 7 e-mails';
+    const secao = pag.dominio === 'briefing' ? 'Briefing (página de inscrição)'
+      : pag.dominio === 'conclusao' ? 'Conclusão'
+      : 'Os 7 e-mails';
     if (secao !== secaoAtual) {
       secaoAtual = secao;
       const div = document.createElement('div');
@@ -178,12 +192,14 @@ function montarIndice() {
 
 // vazia / parcial / completa, por página
 function statusDaPagina(pag) {
-  const valores = balde(pag) || {};
-  const preenchidos = pag.campos.filter((c) => preenchido(valores[c.chave]));
+  // Usa valorDe (que aplica o padrão fixo ao campo ainda vazio) para que um
+  // campo com texto padrão — ex.: o chamado final da conclusão — já conte
+  // como preenchido no indicador, mesmo em rascunhos antigos sem esse valor.
+  const preenchidos = pag.campos.filter((c) => preenchido(valorDe(pag, c.chave)));
   if (!preenchidos.length) return 'vazia';
   const obrigatorios = pag.campos.filter((c) => c.obrigatorio);
   const completos = obrigatorios.filter((c) => {
-    const v = valores[c.chave];
+    const v = valorDe(pag, c.chave);
     if (Array.isArray(v)) return v.length > 0;
     const t = String(v || '').trim();
     return t && !/ESCREVA AQUI|^PREENCHER-DEPOIS/i.test(t);
@@ -316,7 +332,9 @@ function montarCampo(pag, campo) {
     btn.textContent = '⚡ usar modelo do assunto';
     btn.addEventListener('click', () => {
       const nome = (estado.dados.briefing['nome-do-curso'] || '<Trilha>').trim() || '<Trilha>';
-      const prefixo = '#7DaysOfCode - ' + nome + ' ' + pag.dia + '/7: ';
+      const prefixo = pag.dominio === 'conclusao'
+        ? '#7DaysOfCode - ' + nome + ' : 🎉 '
+        : '#7DaysOfCode - ' + nome + ' ' + pag.dia + '/7: ';
       if (!entrada.value.trim() || confirm('Substituir o assunto atual pelo modelo?')) {
         entrada.value = prefixo;
         entrada.dispatchEvent(new Event('input'));
@@ -561,7 +579,7 @@ async function exportarTudo() {
   try {
     const r = await api('/api/exportar', { dados: estado.dados });
     alert('Arquivos gerados dentro de _ferramentas-trilhas:\n\n📄 ' + r.briefing + '\n📄 ' + r.docx +
-      '\n📁 ' + r.html + ' (7 HTMLs, um por dia — para colar no HubSpot)' +
+      '\n📁 ' + r.html + ' (7 HTMLs, um por dia, + conclusao.html — para colar no HubSpot)' +
       '\n\nPróximos passos:\n1. node gerar-trilha.js ' + r.briefing + ' --teste\n2. Suba o .docx para a pasta da trilha no SharePoint.\n3. No HubSpot, cole o HTML de cada dia no e-mail correspondente.');
   } catch (e) {
     alert('Não consegui exportar: ' + e.message);

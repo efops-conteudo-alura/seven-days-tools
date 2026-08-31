@@ -146,7 +146,7 @@ function importarDocx(buffer) {
 
   const paginas = todasAsPaginas();
   const pagConfig = paginas.find((p) => p.id === 'emails-config');
-  const resultado = { config: {}, dias: [{}, {}, {}, {}, {}, {}, {}], nomeDoCurso: '' };
+  const resultado = { config: {}, dias: [{}, {}, {}, {}, {}, {}, {}], conclusao: {}, nomeDoCurso: '' };
 
   let camposSecao = null; // campos possíveis da seção atual (config ou um dia)
   let baldeSecao = null;  // onde os valores caem
@@ -174,6 +174,15 @@ function importarDocx(buffer) {
       const pagDia = paginas.find((p) => p.id === 'dia-' + mDia[1]);
       camposSecao = pagDia ? pagDia.campos : null;
       baldeSecao = resultado.dias[+mDia[1] - 1] || {};
+      continue;
+    }
+    if (/^PARTE 3\b/.test(plano)) { fecharCampo(); camposSecao = null; continue; }
+    const mConcl = plano.match(/^E-mail de Conclus[aã]o\b/);
+    if (mConcl) {
+      fecharCampo();
+      const pagConcl = paginas.find((p) => p.id === 'email-conclusao');
+      camposSecao = pagConcl ? pagConcl.campos : null;
+      baldeSecao = resultado.conclusao;
       continue;
     }
     if (/^Nota — /.test(plano)) { fecharCampo(); camposSecao = null; continue; }
@@ -237,11 +246,12 @@ function importarArquivos(arquivos) {
     if (/\.docx$/i.test(nome)) {
       const r = importarDocx(buf);
       Object.assign(dados.emails.config, r.config);
+      Object.assign(dados.emails.conclusao, r.conclusao);
       r.dias.forEach((d, i) => Object.assign(dados.emails.dias[i], d));
       if (r.nomeDoCurso && !String(dados.briefing['nome-do-curso'] || '').trim()) {
         dados.briefing['nome-do-curso'] = r.nomeDoCurso;
       }
-      const total = contarPreenchidos(r.config) + r.dias.reduce((s, d) => s + contarPreenchidos(d), 0);
+      const total = contarPreenchidos(r.config) + contarPreenchidos(r.conclusao) + r.dias.reduce((s, d) => s + contarPreenchidos(d), 0);
       if (!total) throw new Error('"' + nome + '" não tem os rótulos de um Word gerado pelo formulário');
       resumo.push(nome + ' → e-mails (' + total + ' campos)');
 
@@ -253,6 +263,7 @@ function importarArquivos(arquivos) {
       }
       if (r.briefing) Object.assign(dados.briefing, r.briefing);
       if (r.emails && r.emails.config) Object.assign(dados.emails.config, r.emails.config);
+      if (r.emails && r.emails.conclusao) Object.assign(dados.emails.conclusao, r.emails.conclusao);
       if (r.emails && Array.isArray(r.emails.dias)) {
         r.emails.dias.slice(0, 7).forEach((d, i) => { if (d) Object.assign(dados.emails.dias[i], d); });
       }

@@ -16,6 +16,8 @@
  * acrescenta o dele automaticamente.
  */
 
+const { CTA_CONCLUSAO_PADRAO } = require('./campos');
+
 // UTM padronizada da tarja do topo: e<dia>-desafio + tecnologia sem hífens.
 const UTM_BASE = 'utm_source=hubspot&utm_medium=email&utm_campaign=7doc_2026';
 const URL_ALURA = 'https://www.alura.com.br/';
@@ -227,22 +229,80 @@ function htmlDoDia(n, d, cfg, nomeTecnologia, termoUtm) {
 }
 
 // --------------------------------------------------------------------------
+// O e-mail de conclusão (depois do Dia 7)
+//
+// Visual baseado no arquivo de referência saida/<slug>-html/conclusao.html:
+// mesma tarja, barra de progresso cheia, cartão "Solução do dia" liberando o
+// Dia 7, parágrafos de encerramento e o rodapé de incentivo.
+// --------------------------------------------------------------------------
+
+function htmlDaConclusao(d, cfg, nomeTecnologia, termoUtm) {
+  const utm = UTM_BASE + '&utm_content=e7-conclusao&utm_term=' + termoUtm;
+  const T = [];
+
+  T.push(trCabecalho(URL_ALURA + '?' + utm, nomeTecnologia));
+  T.push(trProgresso(7));
+  T.push(trEtiqueta(nomeTecnologia, 7));
+
+  T.push(trsDeCampo(d['abertura']));
+  T.push(trsDeCampo(d['corpo']));
+
+  // Cartão "Solução do dia" liberando o Dia 7
+  const linkSolucao = String(d['solucao-dia-7'] || '').trim();
+  if (linkSolucao) {
+    T.push(trCartao('Solução do dia', botao(linkSolucao, 'Solução do Dia 7'), '#F7F9FC', '#E4E7ED', '#3A4150'));
+  }
+
+  T.push(trsDeCampo(d['fechamento']));
+  // Texto fixo se o campo ainda estiver vazio (rascunho antigo sem este balde).
+  T.push(trsDeCampo(String(d['call-to-action'] || '').trim() ? d['call-to-action'] : CTA_CONCLUSAO_PADRAO));
+
+  // Assinatura — "Nome — Cargo" da configuração fixa
+  const assinatura = String(cfg['assinatura'] || '').trim();
+  const partes = assinatura.split(/\s+—\s+|\s+-\s+/);
+  T.push('<tr><td style="padding:22px 24px 0 24px;font-family:' + FONTE + ';font-size:14px;line-height:20px;color:#3A4150;">' +
+    '<span style="color:#0C0C0E;font-weight:bold;">' + inline(partes[0] || '') + '</span>' +
+    (partes[1] ? '<br/><span style="color:#8892A4;">' + inline(partes.slice(1).join(' — ')) + '</span>' : '') +
+    '</td></tr>');
+
+  // Rodapé de incentivo (hashtags em destaque)
+  const cta = inline(cfg['cta-rodape'] || '')
+    .replace(/(#[\wÀ-ÿ]+)/g, '<strong style="color:#9DB8FF;">$1</strong>');
+  T.push('<tr><td style="padding:26px 24px 24px 24px;">' +
+    '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#0C0C0E;border-radius:8px;">' +
+    '<tr><td style="padding:18px 20px;font-family:' + FONTE + ';font-size:14px;line-height:22px;color:#E6E8EC;">' + cta + '</td></tr>' +
+    '</table></td></tr>');
+
+  return '<!-- ASSUNTO: ' + esc(d['assunto'] || '') + ' -->\n' +
+    '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#EEF1F6;">\n' +
+    '<tr><td align="center" style="padding:24px 16px;">\n' +
+    '<div style="display:none;font-size:1px;color:#EEF1F6;line-height:1px;max-height:0px;max-width:0px;opacity:0;overflow:hidden;">' + esc(d['preheader'] || '') + '</div>\n' +
+    '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;background-color:#FFFFFF;">\n' +
+    T.join('\n') +
+    '\n</table></td></tr></table>\n';
+}
+
+// --------------------------------------------------------------------------
 
 // Devolve [{ nome: 'dia-1.html', conteudo: '...' }, ...]
 function gerarEmailsHtml(dados) {
   const b = (dados && dados.briefing) || {};
   const cfg = (dados && dados.emails && dados.emails.config) || {};
   const dias = (dados && dados.emails && dados.emails.dias) || [];
+  const concl = (dados && dados.emails && dados.emails.conclusao) || {};
 
   const nomeTecnologia = String(b['nome-do-curso'] || '').trim() || 'Trilha sem nome';
   // utm_term: o slug sem hífens (prompt-engineering -> promptengineering)
   const base = String(b['slug'] || '').trim() || nomeTecnologia;
   const termoUtm = base.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]/g, '');
 
-  return [1, 2, 3, 4, 5, 6, 7].map((n) => ({
-    nome: 'dia-' + n + '.html',
-    conteudo: htmlDoDia(n, dias[n - 1] || {}, cfg, nomeTecnologia, termoUtm),
-  }));
+  return [
+    ...[1, 2, 3, 4, 5, 6, 7].map((n) => ({
+      nome: 'dia-' + n + '.html',
+      conteudo: htmlDoDia(n, dias[n - 1] || {}, cfg, nomeTecnologia, termoUtm),
+    })),
+    { nome: 'conclusao.html', conteudo: htmlDaConclusao(concl, cfg, nomeTecnologia, termoUtm) },
+  ];
 }
 
 module.exports = { gerarEmailsHtml };

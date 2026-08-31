@@ -39,6 +39,7 @@ function validarTudo(dados) {
   const b = (dados && dados.briefing) || {};
   const cfg = (dados && dados.emails && dados.emails.config) || {};
   const dias = (dados && dados.emails && dados.emails.dias) || [];
+  const concl = (dados && dados.emails && dados.emails.conclusao) || {};
   const paginas = todasAsPaginas();
 
   // -------------------------------------------------------------------------
@@ -46,10 +47,12 @@ function validarTudo(dados) {
   // -------------------------------------------------------------------------
   for (const pag of paginas) {
     if (pag.dominio === 'dia') continue;
-    const valores = pag.dominio === 'briefing' ? b : cfg;
+    const valores = pag.dominio === 'briefing' ? b : pag.dominio === 'conclusao' ? concl : cfg;
     for (const c of pag.campos) {
-      const v = valores[c.chave];
       if (c.chave === 'hubspot-formid') continue; // tratado como aviso, abaixo
+      // Campo com padrão fixo (ex.: chamado final da conclusão): se ainda não
+      // gravado (rascunho antigo sem este balde), conta como preenchido.
+      const v = valores[c.chave] === undefined || valores[c.chave] === '' ? c.padrao : valores[c.chave];
       if (c.obrigatorio && pareceLugarNenhum(v)) {
         add('erro', pag.id, c.chave, '"' + c.rotulo + '" não foi preenchido.');
       }
@@ -196,6 +199,19 @@ function validarTudo(dados) {
     if (total > LIMITE_EMAIL) {
       add('aviso', pagId, 'desafio', 'Dia ' + n + ': e-mail com ~' + total + ' caracteres — o Gmail corta mensagens longas ("[Mensagem truncada]") e a solução, que fica no fim, é o que some. Prefira links.');
     }
+  }
+
+  // -------------------------------------------------------------------------
+  // E-mail de Conclusão (depois do Dia 7) — checagens próprias
+  // -------------------------------------------------------------------------
+  const pagConclId = 'email-conclusao';
+  const assuntoConcl = String(concl['assunto'] || '');
+  if (assuntoConcl && /(\d)\s*\/\s*7/.test(assuntoConcl)) {
+    add('erro', pagConclId, 'assunto', 'Conclusão: o assunto não deve trazer a numeração "N/7" — este é o e-mail de encerramento, não um dia.');
+  }
+  const nomeConcl = String(concl['solucao-dia-7'] || '').trim();
+  if (nomeConcl && !urlValida(nomeConcl)) {
+    add('erro', pagConclId, 'solucao-dia-7', 'Conclusão: a solução do Dia 7 precisa ser um link começando com http:// ou https://.');
   }
 
   // Nome da trilha inconsistente entre os assuntos (erro tipo "bug do Flutter")

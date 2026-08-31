@@ -174,12 +174,12 @@ O preenchimento é feito no **formulário local** — as duas entregas (página 
 ### Como usar
 
 1. No terminal, dentro da pasta `_ferramentas-trilhas`: `node formulario/servidor.js` — o navegador abre sozinho.
-2. Clique em **"Começar uma trilha nova"** e preencha as 11 páginas navegando pelo índice lateral. Cada campo traz um exemplo; negrito se escreve `**assim**`; **tudo salva sozinho** (pode fechar e continuar outro dia).
+2. Clique em **"Começar uma trilha nova"** e preencha as 12 páginas navegando pelo índice lateral. Cada campo traz um exemplo; negrito se escreve `**assim**`; **tudo salva sozinho** (pode fechar e continuar outro dia).
 3. Clique em **"✓ Validar tudo"** — os problemas aparecem listados e o clique leva ao campo certo.
 4. Clique em **"📄 Gerar os arquivos"**. Saem os três produtos, já com os nomes e formatos certos:
    - `briefings/<slug>.md` → alimenta a geração da página (Etapa 6);
    - `saida/E-mails — <Trilha>.docx` → **suba na pasta do 7 Days of Code no SharePoint** (Etapa 3), para revisão;
-   - `saida/<slug>-html/` → **7 HTMLs prontos** (`dia-1.html` a `dia-7.html`) para o marketing colar no HubSpot (Etapa 7).
+   - `saida/<slug>-html/` → **8 HTMLs prontos** (`dia-1.html` a `dia-7.html` + `conclusao.html`) para o marketing colar no HubSpot (Etapa 7).
 
 Quem preencheu pelo zip (sem o repositório) tem um passo a mais: enviar o rascunho — o arquivo `rascunhos/<slug>.7doc.json` — para quem publica, que o coloca na pasta `rascunhos/` dele e segue dali. O passo a passo completo está no [GUIA.md](GUIA.md).
 

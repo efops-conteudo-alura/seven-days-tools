@@ -211,27 +211,73 @@ function paginaDia(n) {
 }
 
 // ---------------------------------------------------------------------------
+// E-mails — PARTE 3: o e-mail de conclusão (depois do Dia 7)
+// ---------------------------------------------------------------------------
+
+// Texto fixo do bloco final (próximos passos) — compartilhado entre o
+// formulário (padrão já preenchido) e o exportador (que o usa se o campo
+// ainda estiver vazio, como em rascunhos antigos sem este balde).
+const CTA_CONCLUSAO_PADRAO = 'É o seu momento de voltar para a superfície e mostrar para todo o mundo o que você criou durante este mergulho.\n\n' +
+  'Use a hashtag #7DaysOfCode para compartilhar no seu GitHub e nas suas redes sociais o que você desenvolveu. Se preferir, me marque no LinkedIn também que eu vou adorar ver o seu progresso!\n\n' +
+  'Fique de olho na plataforma 7 Days of Code para encarar outros desafios e continuar aprendendo e praticando.\n\n' +
+  'Voltamos a nos falar em breve através da Newsletter Dev em T, com atualizações do mundo Tech, novidades da Alura, e muito mais!';
+
+// O visual parte do arquivo de referência saida/<slug>-html/conclusao.html:
+// a mesma tarja, barra de progresso cheia, cartão da solução do Dia 7 e o
+// rodapé de incentivo — mas com textos próprios de encerramento.
+const PAGINA_CONCLUSAO = {
+  id: 'email-conclusao',
+  titulo: 'E-mail de Conclusão',
+  dominio: 'conclusao',
+  campos: [
+    { chave: 'assunto', rotulo: 'Assunto', tipo: 'linha', obrigatorio: true, modeloAssunto: true,
+      ajuda: 'Formato: #7DaysOfCode - <Trilha> : 🎉 <Tema>. Neste e-mail NÃO se usa a numeração "7/7".',
+      placeholder: '#7DaysOfCode - Vibe Coding com Claude Code : 🎉 Parabéns por concluir!' },
+    { chave: 'preheader', rotulo: 'Preheader', tipo: 'linha', obrigatorio: true,
+      ajuda: 'A previzinha que aparece na caixa de entrada.',
+      placeholder: 'Parabéns por ter concluído o #7DaysOfCode! A solução do Dia 7 já está liberada.' },
+    { chave: 'abertura', rotulo: 'Abertura', tipo: 'paragrafo', obrigatorio: true,
+      ajuda: 'Saudação e o anúncio da conclusão da jornada.',
+      placeholder: 'Olá,\n\nParabéns por ter concluído o #7DaysOfCode!' },
+    { chave: 'corpo', rotulo: 'Corpo (celebração + solução)', tipo: 'paragrafo', obrigatorio: true,
+      ajuda: 'Parágrafos celebrando a jornada e liberando a solução do Dia 7 para comparação.',
+      placeholder: 'Foi uma experiência incrível te desafiar. Agora que você já chegou até aqui, vou liberar a solução do Dia 7...' },
+    { chave: 'solucao-dia-7', rotulo: 'Solução do Dia 7 (link)', tipo: 'linha', obrigatorio: true,
+      ajuda: 'Cole o LINK da branch do Dia 7 do repositório da trilha em github.com/7-days-of-code.',
+      placeholder: 'https://github.com/7-days-of-code/vibe-coding-claude/tree/solucao-dia-7' },
+    { chave: 'fechamento', rotulo: 'Fechamento', tipo: 'paragrafo', obrigatorio: true,
+      ajuda: 'Encerramento: agradecimento, compartilhar com #7DaysOfCode e próximos passos.',
+      placeholder: 'Espero que você tenha aproveitado e ganhado mais confiança em usar o Claude como seu fiel companheiro de trabalho.' },
+    { chave: 'call-to-action', rotulo: 'Chamado final (próximos passos)', tipo: 'paragrafo', obrigatorio: true,
+      ajuda: 'O bloco com os próximos passos. Já vem com o texto padrão do 7 Days of Code — pode editar, mas é bom manter o espírito (compartilhar com #7DaysOfCode e seguir desafiando-se).',
+      padrao: CTA_CONCLUSAO_PADRAO },
+  ],
+};
+
+// ---------------------------------------------------------------------------
 
 function todasAsPaginas() {
   return [
     ...PAGINAS_BRIEFING,
     PAGINA_CONFIG,
     ...[1, 2, 3, 4, 5, 6, 7].map(paginaDia),
+    PAGINA_CONCLUSAO,
   ];
 }
 
 // Rascunho novo, com os valores-padrão já aplicados.
 function rascunhoNovo() {
-  const dados = { versao: 1, briefing: {}, emails: { config: {}, dias: [{}, {}, {}, {}, {}, {}, {}] } };
+  const dados = { versao: 1, briefing: {}, emails: { config: {}, dias: [{}, {}, {}, {}, {}, {}, {}], conclusao: {} } };
   for (const pag of todasAsPaginas()) {
     for (const c of pag.campos) {
       if (c.padrao === undefined) continue;
       if (pag.dominio === 'briefing') dados.briefing[c.chave] = c.padrao;
       else if (pag.dominio === 'config') dados.emails.config[c.chave] = c.padrao;
+      else if (pag.dominio === 'conclusao') dados.emails.conclusao[c.chave] = c.padrao;
       else dados.emails.dias[pag.dia - 1][c.chave] = c.padrao;
     }
   }
   return dados;
 }
 
-module.exports = { CATEGORIAS, TIPOS_DE_LINK, PLACEHOLDERS, ORDEM_BRIEFING, todasAsPaginas, rascunhoNovo };
+module.exports = { CATEGORIAS, TIPOS_DE_LINK, PLACEHOLDERS, ORDEM_BRIEFING, todasAsPaginas, rascunhoNovo, CTA_CONCLUSAO_PADRAO };
