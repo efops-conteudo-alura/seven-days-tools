@@ -36,11 +36,21 @@ function esc(t) {
     .replace(/"/g, '&quot;');
 }
 
-// **negrito** e [nome] dentro de uma linha já escapada.
+// **negrito**, [nome] e <a href="...">dentro de uma linha já escapada.
 function inline(t) {
-  return esc(t)
+  const links = [];
+  let s = String(t == null ? '' : t)
+    .replace(/<a\s+href="([^"]*)">(.*?)<\/a>/g, (_, href, txt) => {
+      links.push({ href, txt });
+      return '\x00LINK' + (links.length - 1) + '\x00';
+    });
+  s = esc(s)
     .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
     .replace(/\[nome\]/g, '{{ contact.firstname }}');
+  for (let i = 0; i < links.length; i++) {
+    s = s.replace('\x00LINK' + i + '\x00', '<a href="' + links[i].href + '">' + esc(links[i].txt) + '</a>');
+  }
+  return s;
 }
 
 // Divide o texto de um campo em blocos: 'texto' e 'codigo' (entre ```).

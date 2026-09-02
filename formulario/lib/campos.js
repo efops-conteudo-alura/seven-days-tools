@@ -219,7 +219,7 @@ function paginaDia(n) {
 // ainda estiver vazio, como em rascunhos antigos sem este balde).
 const CTA_CONCLUSAO_PADRAO = 'É o seu momento de voltar para a superfície e mostrar para todo o mundo o que você criou durante este mergulho.\n\n' +
   'Use a hashtag #7DaysOfCode para compartilhar no seu GitHub e nas suas redes sociais o que você desenvolveu. Se preferir, me marque no LinkedIn também que eu vou adorar ver o seu progresso!\n\n' +
-  'Fique de olho na plataforma 7 Days of Code para encarar outros desafios e continuar aprendendo e praticando.\n\n' +
+  '<a href="https://7daysofcode.io/">Fique de olho na plataforma 7 Days of Code</a> para encarar outros desafios e continuar aprendendo e praticando.\n\n' +
   'Voltamos a nos falar em breve através da Newsletter Dev em T, com atualizações do mundo Tech, novidades da Alura, e muito mais!';
 
 // O visual parte do arquivo de referência saida/<slug>-html/conclusao.html:
